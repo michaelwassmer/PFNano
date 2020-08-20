@@ -20,7 +20,7 @@ git cms-merge-topic andrzejnovak:DDXV2_106
 git clone https://github.com/cms-data/RecoBTag-Combined.git RecoBTag/Combined/data
 git clone https://github.com/mcremone/NanoMET.git PhysicsTools/NanoMET
 scram b -j 10
-cd PhysicsTools/NanoAODJMAR/test
+cd PhysicsTools/NanoMET/test
 ```
 Note: This configuration has been tested for this combination of CMSSW release, global tag, era and dataset. When running over a new dataset you should check with [the nanoAOD workbook twiki](https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookNanoAOD#Running_on_various_datasets_from) to see if the era modifiers in the CRAB configuration files are correct. The jet correction versions are taken from the global tag.
 
