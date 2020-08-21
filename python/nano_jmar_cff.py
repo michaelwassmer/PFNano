@@ -1,6 +1,6 @@
 import FWCore.ParameterSet.Config as cms
-from PhysicsTools.NanoAODJMAR.addPFCands_cff import addPFCands
-from PhysicsTools.NanoAODJMAR.addBTV import add_BTV
+from PhysicsTools.NanoMET.addPFCands_cff import addPFCands
+from PhysicsTools.NanoMET.addBTV import add_BTV
 from PhysicsTools.NanoAOD.common_cff import Var
 
 
