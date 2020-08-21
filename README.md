@@ -26,14 +26,9 @@ Note: This configuration has been tested for this combination of CMSSW release, 
 
 ## Local Usage:
 
-2017 MC:
+2018 MC:
 ```
-cmsRun nano106X_on_mini106X_2017_mc_NANO.py
-```
-
-2017 DATA:
-```
-cmsRun nano106X_on_mini106X_2017_data_NANO.py
+cmsRun nano106X_2018_mc.py
 ```
 
 ### How to create python files using cmsDriver
@@ -41,7 +36,7 @@ cmsRun nano106X_on_mini106X_2017_data_NANO.py
 All the previous python config files were produced with `cmsDriver.py`. Two imporant parameters that one needs to verify in the central nanoAOD documentation are `--conditions` and `--era`. Then, an example of how to create those file, if needed, is shown below:
 
 ```
-cmsDriver.py nano102x_on_mini94x_2016_mc --mc --eventcontent NANOAODSIM --datatier NANOAODSIM --conditions 102X_mcRun2_asymptotic_v8 --step NANO --era Run2_2016,run2_nanoAOD_94X2016 --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)))\n" -n 100 --filein /store/mc/RunIISummer16MiniAODv3/QCD_HT1000to1500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_94X_mcRun2_asymptotic_v3-v2/120000/086BBC76-7AEA-E811-AA5A-6CC2173D9FB0.root --nThreads 2  --customise PhysicsTools/NanoAODJMAR/nano_jmar_cff.JMARnano_customizeMC
+cmsDriver.py nano106X_2018_mc.py --mc --eventcontent NANOAODSIM --datatier NANOAODSIM --conditions 106X_upgrade2018_realistic_v11_L1v1 --step NANO --era Run2_2018,run2_nanoAOD_102Xv1 --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)))\n" -n 60000 --nThreads 8 --customise PhysicsTools/NanoMET/nano_jmar_cff.JMARnano_customizeMC_allPF --no_exec
 ```
 
 ## How to create website with nanoAOD content
