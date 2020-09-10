@@ -22,13 +22,34 @@ git clone https://github.com/mcremone/NanoMET.git PhysicsTools/NanoMET
 scram b -j 10
 cd PhysicsTools/NanoMET/test
 ```
+
+For **NanoAODv6** in 102X:
+
+```
+cmsrel  CMSSW_10_2_18
+cd  CMSSW_10_2_18/src
+cmsenv
+git cms-addpkg PhysicsTools/NanoAOD
+git cms-addpkg RecoBTag/Combined
+git cms-merge-topic andrzejnovak:DDXV2_106
+git clone https://github.com/cms-data/RecoBTag-Combined.git RecoBTag/Combined/data
+git clone https://github.com/mcremone/NanoMET.git PhysicsTools/NanoMET
+scram b -j 10
+cd PhysicsTools/NanoMET/test
+```
+
 Note: This configuration has been tested for this combination of CMSSW release, global tag, era and dataset. When running over a new dataset you should check with [the nanoAOD workbook twiki](https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookNanoAOD#Running_on_various_datasets_from) to see if the era modifiers in the CRAB configuration files are correct. The jet correction versions are taken from the global tag.
 
 ## Local Usage:
 
-2018 MC:
+2018 MC in 106X:
 ```
 cmsRun nano106X_2018_mc.py
+```
+
+2018 MC in 102X:
+```
+cmsRun nano102X_2018_mc.py
 ```
 
 ### How to create python files using cmsDriver
@@ -37,6 +58,8 @@ All the previous python config files were produced with `cmsDriver.py`. Two impo
 
 ```
 cmsDriver.py 106X_2018_mc --mc --eventcontent NANOAODSIM --datatier NANOAODSIM --conditions 106X_upgrade2018_realistic_v11_L1v1 --step NANO --era Run2_2018,run2_nanoAOD_102Xv1 --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)))\n" -n 55000 --nThreads 8 --customise PhysicsTools/NanoMET/nano_jmar_cff.JMARnano_customizeMC_allPF --no_exec
+
+cmsDriver.py 102X_2018_mc --mc --eventcontent NANOAODSIM --datatier NANOAODSIM --conditions 102X_upgrade2018_realistic_v20 --step NANO --era Run2_2018,run2_nanoAOD_102Xv1 --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)))\n" -n 16000 --nThreads 8 --customise PhysicsTools/NanoMET/nano_jmar_cff.JMARnano_customizeMC_allPF --no_exec
 ```
 
 ## How to create website with nanoAOD content
