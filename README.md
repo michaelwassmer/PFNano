@@ -17,9 +17,9 @@ cmsrel  CMSSW_10_2_18
 cd  CMSSW_10_2_18/src
 cmsenv
 git cms-addpkg PhysicsTools/NanoAOD
-git clone git@github.com:cms-jet/NanoAODJMAR.git -b 102x PhysicsTools/NanoAODJMAR
+git clone https://github.com/mcremone/NanoMET.git -b 102x PhysicsTools/NanoMET
 scram b -j 10
-cd PhysicsTools/NanoAODJMAR/test
+cd PhysicsTools/NanoMET/test
 ```
 
 ### For NANOAODv7
@@ -34,59 +34,31 @@ cmsenv
 git cms-init
 git cms-addpkg PhysicsTools/NanoAOD
 git cms-merge-topic nurfikri89:nanojme_forNanov7_withDeepJetQG
-git clone git@github.com:cms-jet/NanoAODJMAR.git -b 102x PhysicsTools/NanoAODJMAR
+git clone https://github.com/mcremone/NanoMET.git -b 102x PhysicsTools/NanoMET
 scram b -j 10
-cd PhysicsTools/NanoAODJMAR/test
+cd PhysicsTools/NanoMET/test
 ```
 
 ## How to run
 
-All the python files to run the framework are locate in [PhysicsTools/NanoAODJMAR/test/](PhysicsTools/NanoAODJMAR/test/). Then, use cmsRun to the files described below as:
+All the python files to run the framework are locate in [PhysicsTools/NanoMET/test/](PhysicsTools/NanoMET/test/). Then, use cmsRun to the files described below. For 2018 MC in 102X (NANOAODv7):
 ```
-cmsRun nano102x_on_mini94x_2016_mc_NANO.py
+cmsRun 102X_2018_mc_NANO.py outputFile=znunu800to1200.root inputFiles=/store/mc/RunIIAutumn18MiniAOD/ZJetsToNuNu_HT-800To1200_13TeV-madgraph/MINIAODSIM/102X_upgrade2018_realistic_v15-v1/90000/EE8F34B2-13F2-7F45-8036-0DB389B7AAD6.root
 ```
-
-### Local MC Usage:
-
-2016
-  * For JMARnano only (nanoAODv6): `nanov6102x_on_mini94x_2016_mc_NANO.py`
-  * For JMARnano only (nanoAODv7): `nano102x_on_mini94x_2016_mc_NANO.py`
-  * For JMECustomNano (only for nanoAODv7): `JMECustomNano102x_on_mini94x_2016_mc_NANO.py`
-  * For JMECustomNano plus JMARnano (only for nanoAODv7): `JMECustomplusJMARnano102x_on_mini94x_2016_mc_NANO.py`
-
-2017
-  * For JMARnano only (nanoAODv6): `nanov6102x_on_mini94x_2017_mc_NANO.py`
-  * For JMARnano only (nanoAODv7): `nano102x_on_mini94x_2017_mc_NANO.py`
-
-2018
-  * For JMARnano only (nanoAODv6): `nanov6102x_on_mini102x_2018_mc_NANO.py`
-  * For JMARnano only (nanoAODv7): `nano102x_on_mini102x_2018_mc_NANO.py`
-
-### Local Data usage:
-
-2016
-  * For JMARnano only (nanoAODv6): `nanov6102x_on_mini94x_2016_data_NANO.py`
-  * For JMARnano only (nanoAODv7): `nano102x_on_mini94x_2016_data_NANO.py`
-  * For JMECustomNano (only for nanoAODv7): `JMECustomNano102x_on_mini94x_2016_data_NANO.py`
-  * For JMECustomNano plus JMARnano (only for nanoAODv7): `JMECustomplusJMARnano102x_on_mini94x_2016_data_NANO.py`
-
-2017
-  * For JMARnano only (nanoAODv6): `nanov6102x_on_mini94x_2017_data_NANO.py`
-  * For JMARnano only (nanoAODv7): `nano102x_on_mini94x_2017_data_NANO.py`
-
-2018
-  * For JMARnano only (nanoAODv6): `nanov6102x_on_mini102x_2018_data_abc_NANO.py`, `nanov6102x_on_mini102x_2018_data_d_NANO.py`
-  * For JMARnano only (nanoAODv7): `nano102x_on_mini102x_2018_data_abc_NANO.py`, `nano102x_on_mini102x_2018_data_d_NANO.py`
 
 ### How to create python files using cmsDriver
 
 All the previous python config files were produced with `cmsDriver.py`. Two imporant parameters that one needs to verify in the central nanoAOD documentation are `--conditions` and `--era`. Then, an example of how to create those file, if needed, is shown below:
 
 ```
-cmsDriver.py JMECustomNano_plusJMARnano102x_on_mini94x_2016_mc --mc --eventcontent NANOAODSIM --datatier NANOAODSIM --conditions 102X_mcRun2_asymptotic_v8 --step NANO --era Run2_2016,run2_nanoAOD_94X2016 --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False))) \n from PhysicsTools.NanoAOD.custom_jme_cff import PrepJMECustomNanoAOD_MC; PrepJMECustomNanoAOD_MC(process)\n" -n 100 --filein /store/mc/RunIISummer16MiniAODv3/QCD_HT1000to1500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUMoriond17_94X_mcRun2_asymptotic_v3-v2/120000/086BBC76-7AEA-E811-AA5A-6CC2173D9FB0.root --nThreads 2  --customise PhysicsTools/NanoAODJMAR/nano_jmar_cff.JMARnano_customizeMC
+cmsDriver.py 102X_2018_mc --mc --eventcontent NANOAODSIM --datatier NANOAODSIM --conditions 102X_upgrade2018_realistic_v21 --step NANO --era Run2_2018,run2_nanoAOD_102Xv1 --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)))\n" -n 16000 --nThreads 8 --customise PhysicsTools/NanoMET/nano_jmar_cff.JMARnano_customizeMC_allPF --no_exec
 ```
+
 This complete example includes the JMECustomNano and the JMARnano collections.
 
+### Input Datasets
+
+Run over ZJetsNuNu (/ZJetsToNuNu_HT\*/\*RunIIAutumn18MiniAOD\*/MINIAODSIM on DAS). 
 
 ### Submission to CRAB
 
