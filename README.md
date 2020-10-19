@@ -40,16 +40,16 @@ cd PhysicsTools/NanoMET/test
 ```
 
 ### Add the DeepMET producer to Nano
-Add the DeepMET producer and Nano production chain by
+Add the DeepMET producer and Nano production chain:
 ```
 cd $CMSSW_BASE/src
 git cms-merge-topic yongbinfeng:NanoDeepMETIntegration_102X
 ```
-Update the `cmsswdata` to update the `RecoMET` directory by
+Update the `cmsswdata` to update the RecoMET METPUSubtraction data directory:
 ```
 patch $CMSSW_BASE/config/toolbox/slc7_amd64_gcc700/tools/selected/cmsswdata.xml < PhysicsTools/NanoMET/cmsswdata.patch
 ```
-Compile and go to the test directory
+Compile (this might take some time) and then go to the test directory:
 ```
 scram b -j 10
 cd PhysicsTools/NanoMET/test
