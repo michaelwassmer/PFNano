@@ -1,0 +1,8 @@
+42c42
+<       <flags CMSSW_DATA_PACKAGE="RecoMET/METPUSubtraction=V01-00-03"/>
+---
+>       <flags CMSSW_DATA_PACKAGE="RecoMET/METPUSubtraction=V01-01-00"/>
+94c94
+<     <runtime name="CMSSW_SEARCH_PATH" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc700/cms/data-RecoMET-METPUSubtraction/V01-00-03" type="path"/>
+---
+>     <runtime name="CMSSW_SEARCH_PATH" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc700/cms/data-RecoMET-METPUSubtraction/V01-01-00" type="path"/>
