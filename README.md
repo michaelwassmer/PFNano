@@ -28,6 +28,7 @@ cmsRun 106X_2018_mc_NANO.py nEvents=100
 To run crab with productions, edit the `outLFNDirBase` in `runcrab.py`. Then
 
 ```
+voms-proxy-init -voms cms
 python runcrab.py
 ./submit_crab.sh
 ```
