@@ -50,6 +50,8 @@ def addPFCands(process, runOnMC=False, allPF = False, onlyAK4=False, onlyAK8=Fal
                                                             pvAssocQuality = Var("pvAssociationQuality()", int, doc="primary vertex association quality"),
                                                             lostInnerHits = Var("lostInnerHits()", int, doc="lost inner hits"),
                                                             trkQuality = Var("?hasTrackDetails()?pseudoTrack().qualityMask():0", int, doc="track quality mask"),
+                                                            fromPV = Var("fromPV()", int, doc="fromPV flag in the PV fitting"),
+                                                            pvRef = Var("vertexRef().key()", int, doc="the reference vertex"),
                                                          )
                                     )
     process.customAK8ConstituentsTable = cms.EDProducer("PatJetConstituentTableProducer",
