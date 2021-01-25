@@ -11,6 +11,7 @@ from Configuration.Eras.Modifier_run2_nanoAOD_102Xv1_cff import run2_nanoAOD_102
 
 process = cms.Process('NANO',Run2_2018,run2_nanoAOD_102Xv1)
 options = VarParsing.VarParsing ('analysis')
+options.register('nEvents', 60000, VarParsing.VarParsing.multiplicity.singleton, VarParsing.VarParsing.varType.int, 'Number of events to analyze')
 options.parseArguments()
 
 # import of standard configurations
@@ -26,7 +27,7 @@ process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(60000)
+    input = cms.untracked.int32(options.nEvents)
 )
 
 # Input source
