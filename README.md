@@ -22,7 +22,14 @@ cd PhysicsTools/NanoMET/test
 
 For a quick test, run
 ```
-cmsRun 106X_2018_mc_NANO.py outputFile=dy0.root inputFiles=/store/mc/RunIIAutumn18MiniAOD/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/MINIAODSIM/102X_upgrade2018_realistic_v15-v1/270000/5D241DFC-1763-7347-8981-97E9ABF840A6.root nEvents=100
+cmsRun 106X_2018_mc_NANO.py nEvents=100
+```
+
+To run crab with productions, edit the `outLFNDirBase` in `runcrab.py`. Then
+
+```
+python runcrab.py
+./submit_crab.sh
 ```
 
 
