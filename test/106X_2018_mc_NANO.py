@@ -92,10 +92,12 @@ from PhysicsTools.NanoAOD.nano_cff import nanoAOD_customizeMC
 process = nanoAOD_customizeMC(process)
 
 # Automatic addition of the customisation function from PhysicsTools.NanoMET.nano_jmar_cff
-from PhysicsTools.NanoMET.nano_jmar_cff import JMARnano_customizeMC_allPF 
+#from PhysicsTools.NanoMET.nano_jmar_cff import JMARnano_customizeMC_allPF 
+from PhysicsTools.NanoMET.pfnano_cff import PFnano_customizeMC_allPF 
 
 #call to customisation function JMARnano_customizeMC_allPF imported from PhysicsTools.NanoMET.nano_jmar_cff
-process = JMARnano_customizeMC_allPF(process)
+#process = JMARnano_customizeMC_allPF(process)
+process = PFnano_customizeMC_allPF(process)
 
 # End of customisation functions
 

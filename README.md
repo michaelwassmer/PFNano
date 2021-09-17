@@ -15,7 +15,7 @@ For **UL** 2016, 2017 and 2018 data and MC **NanoAODv8** according to the [XPOG]
 cmsrel  CMSSW_10_6_20
 cd  CMSSW_10_6_20/src
 cmsenv
-git cms-addpkg PhysicsTools/NanoAOD
+git cms-rebase-topic andrzejnovak:614nosort
 git clone https://github.com/yihui-lai/NanoMET.git PhysicsTools/NanoMET
 scram b -j 10
 cd PhysicsTools/NanoMET/test
