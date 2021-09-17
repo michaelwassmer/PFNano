@@ -5,15 +5,19 @@ This is a small script that submits a config over datasets
 import os
 
 mc_samples = [
-    ('/ZJetsToNuNu_HT-100To200_13TeV-madgraph/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1/MINIAODSIM', 3),
-    ('/ZJetsToNuNu_HT-200To400_13TeV-madgraph/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1/MINIAODSIM', 5),
-    ('/ZJetsToNuNu_HT-400To600_13TeV-madgraph/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v2/MINIAODSIM', 5),
-    ('/ZJetsToNuNu_HT-600To800_13TeV-madgraph/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1/MINIAODSIM', 8),
-    ('/ZJetsToNuNu_HT-800To1200_13TeV-madgraph/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1/MINIAODSIM', 10),
-    ('/ZJetsToNuNu_HT-1200To2500_13TeV-madgraph/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1/MINIAODSIM', 15),
-    ('/ZJetsToNuNu_HT-2500ToInf_13TeV-madgraph/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1/MINIAODSIM', 30),
-    ('/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1/MINIAODSIM', 10),
-    ('/TTJets_DiLept_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1/MINIAODSIM', 10)
+    ('/ZJetsToNuNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM', 3), #623 28876062 1.3T
+    ('/ZJetsToNuNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v2/MINIAODSIM', 3), #480, 22749608 1.2T
+    ('/ZJetsToNuNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM', 5), #437, 19810491 1.1T
+    ('/ZJetsToNuNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM', 139), # 139, 5968910 364.1GB
+    ('/ZJetsToNuNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM', 1), #55 2129122 135.9GB
+    ('/ZJetsToNuNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM', 139), #19 381695 26.6GB
+    ('/ZJetsToNuNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM', 139), #8 268224 20.3GB
+
+    ('/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIISummer20UL18MiniAOD-106X_upgrade2018_realistic_v11_L1v1-v1/MINIAODSIM',), #2482, 196039620 8.4T
+    ('/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM', 10)#87 146058000 8.1T
+]
+run_samples = [
+    ('/ZJetsToNuNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM', 8), #8 268224 20.3GB
 ]
 
 config_dir = 'crab_configs'
@@ -23,7 +27,7 @@ if not os.path.isdir( config_dir ) :
 
 submit_commands = []
 
-for path, nfiles in mc_samples:
+for path, nfiles in run_samples:
     base_name = path.split('/')[1]
 
     fname = '%s/%s.py'%(config_dir, base_name)
@@ -58,8 +62,9 @@ for path, nfiles in mc_samples:
     file_entries.append('config.Data.totalUnits = %d'%nfiles)
     file_entries.append('config.Data.ignoreLocality = False')
     file_entries.append('config.Data.publication = False')
-    file_entries.append('config.Data.outputDatasetTag= "NanoAOD_0125"')
-    file_entries.append('config.Data.outLFNDirBase = "/store/user/yofeng/GraphMET_MoreEvents/"')
+    file_entries.append('config.Data.outputDatasetTag= "NanoAOD_0916"')
+    file_entries.append('config.Data.outLFNDirBase = "/store/user/yilai/GraphMET_Sep16/"')
+    #/eos/uscms/store/user/yilai
 
     file_entries.append('')
     file_entries.append('config.section_("Site")')

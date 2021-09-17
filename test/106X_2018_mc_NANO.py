@@ -7,9 +7,9 @@ import FWCore.ParameterSet.Config as cms
 import FWCore.ParameterSet.VarParsing as VarParsing
 
 from Configuration.Eras.Era_Run2_2018_cff import Run2_2018
-from Configuration.Eras.Modifier_run2_nanoAOD_102Xv1_cff import run2_nanoAOD_102Xv1
+from Configuration.Eras.Modifier_run2_nanoAOD_106Xv1_cff import run2_nanoAOD_106Xv1
 
-process = cms.Process('NANO',Run2_2018,run2_nanoAOD_102Xv1)
+process = cms.Process('NANO',Run2_2018,run2_nanoAOD_106Xv1)
 options = VarParsing.VarParsing ('analysis')
 options.register('nEvents', 60000, VarParsing.VarParsing.multiplicity.singleton, VarParsing.VarParsing.varType.int, 'Number of events to analyze')
 options.parseArguments()
@@ -33,7 +33,8 @@ process.maxEvents = cms.untracked.PSet(
 # Input source
 process.source = cms.Source("PoolSource",
     fileNames = cms.untracked.vstring(
-        "/store/mc/RunIIAutumn18MiniAOD/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/MINIAODSIM/102X_upgrade2018_realistic_v15-v1/270000/5D241DFC-1763-7347-8981-97E9ABF840A6.root"
+        "/store/mc/RunIISummer20UL18MiniAODv2/ZJetsToNuNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/MINIAODSIM/106X_upgrade2018_realistic_v16_L1v1-v1/280000/8484387B-9F61-C745-B24E-FF9774A63A3B.root"
+        #"/store/mc/RunIIAutumn18MiniAOD/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/MINIAODSIM/102X_upgrade2018_realistic_v15-v1/270000/5D241DFC-1763-7347-8981-97E9ABF840A6.root"
     ),
     secondaryFileNames = cms.untracked.vstring()
 )
