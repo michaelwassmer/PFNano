@@ -34,7 +34,7 @@ def addPFCands(process, runOnMC=False, allPF = False, onlyAK4=False, onlyAK8=Fal
     process.customConstituentsExtTable = cms.EDProducer("SimpleCandidateFlatTableProducer",
                                                         src = candInput,
                                                         cut = cms.string(""), #we should not filter after pruning
-                                                        name = cms.string("JetPFCands"),
+                                                        name = cms.string("PFCands"),
                                                         doc = cms.string("interesting particles from AK4 and AK8 jets"),
                                                         singleton = cms.bool(False), # the number of entries is variable
                                                         extension = cms.bool(False), # this is the extension table for the AK8 constituents
@@ -43,28 +43,36 @@ def addPFCands(process, runOnMC=False, allPF = False, onlyAK4=False, onlyAK8=Fal
                                                             puppiWeightNoLep = Var("puppiWeightNoLep()", float, doc="Puppi weight removing leptons",precision=10),
                                                             vtxChi2 = Var("?hasTrackDetails()?vertexChi2():-1", float, doc="vertex chi2",precision=10),
                                                             trkChi2 = Var("?hasTrackDetails()?pseudoTrack().normalizedChi2():-1", float, doc="normalized trk chi2", precision=10),
-                                                            dz = Var("?hasTrackDetails()?dz():-1", float, doc="pf dz", precision=10),
+                                                            dz = Var("dz()", float, doc="pf dz", precision=10),
                                                             dzErr = Var("?hasTrackDetails()?dzError():-1", float, doc="pf dz err", precision=10),
-                                                            d0 = Var("?hasTrackDetails()?dxy():-1", float, doc="pf d0", precision=10),
+                                                            d0 = Var("dxy()", float, doc="pf d0", precision=10),
                                                             d0Err = Var("?hasTrackDetails()?dxyError():-1", float, doc="pf d0 err", precision=10),
                                                             pvAssocQuality = Var("pvAssociationQuality()", int, doc="primary vertex association quality"),
                                                             lostInnerHits = Var("lostInnerHits()", int, doc="lost inner hits"),
                                                             trkQuality = Var("?hasTrackDetails()?pseudoTrack().qualityMask():0", int, doc="track quality mask"),
+                                                            fromPV = Var("fromPV()", int, doc="fromPV flag in the PV fitting"),
+                                                            pvRef = Var("vertexRef().key()", int, doc="the reference vertex"),
                                                          )
                                     )
     process.customAK8ConstituentsTable = cms.EDProducer("PatJetConstituentTableProducer",
                                                         candidates = candInput,
                                                         jets = cms.InputTag("finalJetsAK8"),
                                                         jet_radius = cms.double(0.8),
-                                                        name = cms.string("JetPFCandsAK8"),
-                                                        nameSV = cms.string("JetSVsAK8"))
+                                                        name = cms.string("FatJetPFCands"),
+                                                        idx_name = cms.string("pFCandsIdx"),
+                                                        nameSV = cms.string("FatJetSVs"),
+                                                        idx_nameSV = cms.string("sVIdx"),
+                                                        )
     process.customAK4ConstituentsTable = cms.EDProducer("PatJetConstituentTableProducer",
                                                         #candidates = cms.InputTag("packedPFCandidates"),
                                                         candidates = candInput,
                                                         jets = cms.InputTag("finalJets"),
                                                         jet_radius = cms.double(0.4),
-                                                        name = cms.string("JetPFCandsAK4"),
-                                                        nameSV = cms.string("JetSVsAK4"))
+                                                        name = cms.string("JetPFCands"),
+                                                        idx_name = cms.string("pFCandsIdx"),
+                                                        nameSV = cms.string("JetSVs"),
+                                                        idx_nameSV = cms.string("sVIdx"),
+                                                        )
     if not allPF:
         process.customizedPFCandsTask.add(process.finalJetsConstituents)
     process.customizedPFCandsTask.add(process.customConstituentsExtTable)
@@ -75,7 +83,7 @@ def addPFCands(process, runOnMC=False, allPF = False, onlyAK4=False, onlyAK8=Fal
 
         process.genJetsAK8Constituents = cms.EDProducer("GenJetPackedConstituentPtrSelector",
                                                     src = cms.InputTag("slimmedGenJetsAK8"),
-                                                    cut = cms.string("pt > 80")
+                                                    cut = cms.string("pt > 100.")
                                                     )
 
       
@@ -100,7 +108,7 @@ def addPFCands(process, runOnMC=False, allPF = False, onlyAK4=False, onlyAK8=Fal
         process.genJetsParticleTable = cms.EDProducer("SimpleCandidateFlatTableProducer",
                                                          src = genCandInput,
                                                          cut = cms.string(""), #we should not filter after pruning
-                                                         name= cms.string("GenJetCands"),
+                                                         name= cms.string("GenCands"),
                                                          doc = cms.string("interesting gen particles from AK4 and AK8 jets"),
                                                          singleton = cms.bool(False), # the number of entries is variable
                                                          extension = cms.bool(False), # this is the main table for the AK8 constituents
@@ -110,14 +118,18 @@ def addPFCands(process, runOnMC=False, allPF = False, onlyAK4=False, onlyAK8=Fal
         process.genAK8ConstituentsTable = cms.EDProducer("GenJetConstituentTableProducer",
                                                          candidates = genCandInput,
                                                          jets = cms.InputTag("genJetsAK8Constituents"), # Note: The name has "Constituents" in it, but these are the jets
-                                                         name = cms.string("GenJetCandsAK8"),
-                                                         nameSV = cms.string("GenJetSVsAK8"),
+                                                         name = cms.string("GenFatJetCands"),
+                                                         nameSV = cms.string("GenFatJetSVs"),
+                                                         idx_name = cms.string("pFCandsIdx"),
+                                                         idx_nameSV = cms.string("sVIdx"),
                                                          readBtag = cms.bool(False))
         process.genAK4ConstituentsTable = cms.EDProducer("GenJetConstituentTableProducer",
                                                          candidates = genCandInput,
                                                          jets = cms.InputTag("genJetsAK4Constituents"), # Note: The name has "Constituents" in it, but these are the jets
-                                                         name = cms.string("GenJetCandsAK4"),
-                                                         nameSV = cms.string("GenJetSVsAK4"),
+                                                         name = cms.string("GenJetCands"),
+                                                         nameSV = cms.string("GenJetSVs"),
+                                                         idx_name = cms.string("pFCandsIdx"),
+                                                         idx_nameSV = cms.string("sVIdx"),
                                                          readBtag = cms.bool(False))
         process.customizedPFCandsTask.add(process.genJetsAK4Constituents) #Note: For gen need to add jets to the process to keep pt cuts.
         process.customizedPFCandsTask.add(process.genJetsAK8Constituents)
