@@ -5,19 +5,19 @@ This is a small script that submits a config over datasets
 import os
 
 mc_samples = [
-    ('/ZJetsToNuNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM', 3), #623 28876062 1.3T
-    ('/ZJetsToNuNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v2/MINIAODSIM', 3), #480, 22749608 1.2T
-    ('/ZJetsToNuNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM', 5), #437, 19810491 1.1T
-    ('/ZJetsToNuNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM', 139), # 139, 5968910 364.1GB
+    ('/ZJetsToNuNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM', 1), #623 28876062 1.3T
+    ('/ZJetsToNuNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v2/MINIAODSIM', 1), #480, 22749608 1.2T
+    ('/ZJetsToNuNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM', 1), #437, 19810491 1.1T
+    ('/ZJetsToNuNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM', 1), # 139, 5968910 364.1GB
     ('/ZJetsToNuNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM', 1), #55 2129122 135.9GB
-    ('/ZJetsToNuNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM', 139), #19 381695 26.6GB
-    ('/ZJetsToNuNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM', 139), #8 268224 20.3GB
+    ('/ZJetsToNuNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM', 1), #19 381695 26.6GB
+    ('/ZJetsToNuNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM', 1), #8 268224 20.3GB
 
-    ('/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIISummer20UL18MiniAOD-106X_upgrade2018_realistic_v11_L1v1-v1/MINIAODSIM',), #2482, 196039620 8.4T
-    ('/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM', 10)#87 146058000 8.1T
+    ('/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIISummer20UL18MiniAOD-106X_upgrade2018_realistic_v11_L1v1-v1/MINIAODSIM',1), #2482, 196039620 8.4T
+    ('/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM', 1)#87 146058000 8.1T
 ]
 run_samples = [
-    ('/ZJetsToNuNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM', 8), #8 268224 20.3GB
+    ('/ZJetsToNuNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM', 1), #8 268224 20.3GB  -> 13G
 ]
 
 config_dir = 'crab_configs'
@@ -57,14 +57,19 @@ for path, nfiles in run_samples:
     file_entries.append('')
     file_entries.append('config.section_("Data")')
     file_entries.append('config.Data.inputDataset = "%s"'%path)
-    file_entries.append('config.Data.splitting = "FileBased"')
-    file_entries.append('config.Data.unitsPerJob = 1')
-    file_entries.append('config.Data.totalUnits = %d'%nfiles)
+    # FileBased splitting
+    #file_entries.append('config.Data.splitting = "FileBased"')
+    #file_entries.append('config.Data.unitsPerJob = 1')
+    #file_entries.append('config.Data.totalUnits = %d'%nfiles)
+
+    # EventAwareLumiBased splitting
+    file_entries.append('config.Data.splitting = "EventAwareLumiBased"')  
+    file_entries.append('config.Data.unitsPerJob = 400000')  
+
     file_entries.append('config.Data.ignoreLocality = False')
     file_entries.append('config.Data.publication = False')
     file_entries.append('config.Data.outputDatasetTag= "NanoAOD_0916"')
     file_entries.append('config.Data.outLFNDirBase = "/store/user/yilai/GraphMET_Sep16/"')
-    #/eos/uscms/store/user/yilai
 
     file_entries.append('')
     file_entries.append('config.section_("Site")')
