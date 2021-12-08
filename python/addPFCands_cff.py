@@ -76,8 +76,8 @@ def addPFCands(process, runOnMC=False, allPF = False, onlyAK4=False, onlyAK8=Fal
     if not allPF:
         process.customizedPFCandsTask.add(process.finalJetsConstituents)
     process.customizedPFCandsTask.add(process.customConstituentsExtTable)
-    process.customizedPFCandsTask.add(process.customAK8ConstituentsTable)
-    process.customizedPFCandsTask.add(process.customAK4ConstituentsTable)
+    #process.customizedPFCandsTask.add(process.customAK8ConstituentsTable)
+    #process.customizedPFCandsTask.add(process.customAK4ConstituentsTable)
     
     if runOnMC:
 
@@ -131,12 +131,12 @@ def addPFCands(process, runOnMC=False, allPF = False, onlyAK4=False, onlyAK8=Fal
                                                          idx_name = cms.string("pFCandsIdx"),
                                                          idx_nameSV = cms.string("sVIdx"),
                                                          readBtag = cms.bool(False))
-        process.customizedPFCandsTask.add(process.genJetsAK4Constituents) #Note: For gen need to add jets to the process to keep pt cuts.
-        process.customizedPFCandsTask.add(process.genJetsAK8Constituents)
+        #process.customizedPFCandsTask.add(process.genJetsAK4Constituents) #Note: For gen need to add jets to the process to keep pt cuts.
+        #process.customizedPFCandsTask.add(process.genJetsAK8Constituents)
         if not allPF:
             process.customizedPFCandsTask.add(process.genJetsConstituents)
         process.customizedPFCandsTask.add(process.genJetsParticleTable)
-        process.customizedPFCandsTask.add(process.genAK8ConstituentsTable)
-        process.customizedPFCandsTask.add(process.genAK4ConstituentsTable)
+        #process.customizedPFCandsTask.add(process.genAK8ConstituentsTable)
+        #process.customizedPFCandsTask.add(process.genAK4ConstituentsTable)
         
     return process
